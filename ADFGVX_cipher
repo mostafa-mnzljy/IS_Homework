@@ -1,0 +1,33 @@
+  def build_matrix(key):
+  chars = "abcdefghijklmnopqrstuvwxyz0123456789"
+  matrix = []
+  used = ""
+
+  for ch in key:
+    if ch not in used and ch in chars:
+        used += ch
+
+  for ch in chars:
+    if ch not in used:
+      used += ch
+
+  for i in range(0, 36, 6):
+    matrix.append(used[i:i+6])
+
+  return matrix
+
+def encrypt(text, matrix):
+  symbols = "ADFGVX"
+  result = ""
+
+  for ch in text:
+    if ch.isalnum():
+        for row in range(6):
+            if ch in matrix[row]:
+              col = matrix[row].index(ch)
+              result += symbols[row] + symbols[col]
+              break
+    else:
+      result += ch
+
+  return result
