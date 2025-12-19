@@ -1,0 +1,33 @@
+def create_matrix(key):
+  key = key.replace('j', 'i')
+  matrix = []
+  used = ""
+
+  for ch in key + "abcdefghiklmnopqrstuvwxyz":
+    if ch not in used:
+      used += ch
+      matrix.append(ch)
+
+  return matrix 
+
+
+def prepare_text(text):
+  text = text.replace('j', 'i')
+  result = ""
+  i = 0
+
+  while i < len(text):
+    a = text[i]
+    b = text[i + 1] if i + 1 < len(text) else 'x'
+
+    if a == b:
+      result += a + 'x'
+      i += 1
+    else:
+      result += a + b
+      i += 2
+
+  if len(result) % 2 != 0:
+    result += 'x'
+
+  return result
