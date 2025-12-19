@@ -1,0 +1,21 @@
+SHIFTS = [1, 1, 2, 2, 2, 2, 2, 2,
+          1, 2, 2, 2, 2, 2, 2, 1]
+def left_shift(bits, n):
+  return bits[n:] + bits[:n]
+
+
+def generate_subkeys(key56):
+    
+  C = key56[:28]
+  D = key56[28:]
+
+  subkeys = []
+
+  for i in range(16):
+    C = left_shift(C, SHIFTS[i])
+    D = left_shift(D, SHIFTS[i])
+
+    subkey = C + D
+    subkeys.append(subkey)
+
+  return subkeys
