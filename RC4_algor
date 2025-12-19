@@ -1,0 +1,45 @@
+def rc4_keystream(key, n):
+  key_bytes = [ord(c) for c in key]
+
+  S = list(range(256))
+  j = 0
+  for i in range(256):
+    j = (j + S[i] + key_bytes[i % len(key_bytes)]) % 256
+    S[i], S[j] = S[j], S[i]
+
+  i = 0
+  j = 0
+  keystream = []
+
+  for _ in range(n):
+    i = (i + 1) % 256
+    j = (j + S[i]) % 256
+    S[i], S[j] = S[j], S[i]
+    k = S[(S[i] + S[j]) % 256]
+    keystream.append(k)
+
+  return keystream
+
+
+def binary_derivative_test(bits):
+  derivative = []
+
+  for i in range(len(bits) - 1):
+      derivative.append(bits[i] ^ bits[i + 1])
+
+  ones = sum(derivative)
+  zeros = len(derivative) - ones
+
+  print("Binary Derivative Test")
+  print("ones =", ones, "zeros =", zeros)
+
+
+def change_point_test(bits):
+  changes = 0
+
+  for i in range(len(bits) - 1):
+      if bits[i] != bits[i + 1]:
+          changes += 1
+
+  print("Change Point Test")
+  print("number of changes =", changes)
