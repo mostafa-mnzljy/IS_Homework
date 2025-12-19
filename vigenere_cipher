@@ -1,0 +1,34 @@
+def encrypt(text, key):
+  result = ""
+  key_index = 0
+
+  for ch in text:
+    if 'a' <= ch <= 'z':
+      x = ord(ch) - ord('a')
+      k = ord(key[key_index]) - ord('a')
+      c = (x + k) % 26
+      result += chr(c + ord('a'))
+
+      key_index = (key_index + 1) % len(key)
+    else:
+      result += ch
+
+  return result
+
+
+def decrypt(text, key):
+  result = ""
+  key_index = 0
+
+  for ch in text:
+    if 'a' <= ch <= 'z':
+      c = ord(ch) - ord('a')
+      k = ord(key[key_index]) - ord('a')
+      p = (c - k) % 26
+      result += chr(p + ord('a'))
+
+      key_index = (key_index + 1) % len(key)
+    else:
+      result += ch
+
+  return result
