@@ -1,0 +1,35 @@
+def encrypt(text, key):
+  result = ""
+  key_stream = key  
+
+  for i in range(len(text)):
+    if 'a' <= text[i] <= 'z':
+      x = ord(text[i]) - ord('a')
+      k = ord(key_stream[i]) - ord('a')
+      c = (x + k) % 26
+      result += chr(c + ord('a'))
+
+      key_stream += text[i] 
+    else:
+      result += text[i]
+
+  return result
+
+
+def decrypt(text, key):
+  result = ""
+  key_stream = key
+
+  for i in range(len(text)):
+    if 'a' <= text[i] <= 'z':
+      c = ord(text[i]) - ord('a')
+      k = ord(key_stream[i]) - ord('a')
+      p = (c - k) % 26
+      ch = chr(p + ord('a'))
+      result += ch
+
+      key_stream += ch 
+    else:
+      result += text[i]
+
+  return result
